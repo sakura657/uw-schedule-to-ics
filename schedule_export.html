@@ -3,71 +3,182 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>UW Course Schedule → ICS</title>
+    <title>UW-Madison Course Schedule → ICS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'uw-red': '#c5050c',
+              'uw-red-dark': '#9b0000',
+              'uw-gray': '#646569',
+              'uw-light-gray': '#f8f9fa'
+            },
+            fontFamily: {
+              'sans': ['Inter', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-      *{box-sizing:border-box;font-family:"Inter",sans-serif}
-      body{max-width:900px;margin:0 auto;padding:2rem;color:#222}
-      h1{font-size:1.5rem;margin-bottom:1rem}
-      textarea{width:100%;min-height:180px;padding:.75rem;border:1px solid #ccc;border-radius:.5rem}
-      label{display:block;font-weight:600;margin:.75rem 0 .25rem}
-      input,select{padding:.5rem .75rem;border:1px solid #ccc;border-radius:.5rem;width:100%}
-      button{margin-top:1.5rem;padding:.75rem 1.25rem;border:0;border-radius:.5rem;background:#c5050c;color:#fff;font-weight:600;cursor:pointer}
-      button:disabled{opacity:.4;cursor:not-allowed}
-      .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
-      .notice{background:#f7f7f7;padding:1rem;border-left:4px solid #c5050c;margin:1.5rem 0}
-      footer{margin-top:2rem;font-size:.875rem;color:#666;text-align:center}
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body>
-    <h1>UW‑Madison Course Schedule → iCalendar (.ics)</h1>
-
-    <div class="notice">
-      <strong>How to get your HTML source:</strong>
-      <ol>
-        <li>Log in to <a href="https://my.wisc.edu" target="_blank" rel="noopener">MyUW Home</a>.</li>
-        <li>Open <em>Course Schedule</em>.</li>
-        <li>Select <em>Term</em> and click <em>Update</em>.</li>
-        <li>Right‑click anywhere on the page → <em>View Page Source</em>.</li>
-        <li>Select all (<kbd>⌘/Ctrl‑A</kbd>) and copy (<kbd>⌘/Ctrl‑C</kbd>).</li>
-        <li>Paste the entire HTML into the box below <em>(make sure your browser language is set to English for consistent parsing)</em>.</li>
-      </ol>
-    </div>
-
-    <label for="html">1️⃣ Paste full Course Schedule <code>.html</code> here</label>
-    <textarea id="html" placeholder="&lt;!doctype html&gt; ..."></textarea>
-
-    <div class="row">
-      <div>
-        <label for="start">2️⃣ Term begins (e.g. 2025‑09‑03)</label>
-        <input type="date" id="start" />
-      </div>
-      <div>
-        <label for="end">3️⃣ Term ends (e.g. 2025‑12‑10)</label>
-        <input type="date" id="end" />
-      </div>
-      <div>
-        <label for="alert">4️⃣ Default alert</label>
-        <select id="alert">
-          <option value="none" selected>None</option>
-          <option value="0">At time of event</option>
-          <option value="5">5 minutes before</option>
-          <option value="10">10 minutes before</option>
-          <option value="15">15 minutes before</option>
-          <option value="30">30 minutes before</option>
-          <option value="60">1 hour before</option>
-          <option value="120">2 hours before</option>
-          <option value="1440">1 day before</option>
-          <option value="2880">2 days before</option>
-        </select>
+  <body class="bg-gray-50 min-h-screen">
+    <!-- Header with UW branding -->
+    <div class="bg-uw-red text-white shadow-lg">
+      <div class="max-w-4xl mx-auto px-6 py-4">
+        <div class="flex items-center space-x-4">
+          <!-- UW Logo placeholder -->
+          <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
+            <span class="text-uw-red font-bold text-xl">W</span>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold">UW-Madison Course Schedule</h1>
+            <p class="text-red-100 text-sm">Export to iCalendar (.ics)</p>
+          </div>
+        </div>
       </div>
     </div>
 
-    <button id="generate">Generate ICS</button>
+    <!-- Main content -->
+    <div class="max-w-4xl mx-auto px-6 py-8">
+      <!-- Instructions card -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-8">
+        <div class="flex items-start space-x-3">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-semibold text-gray-900 mb-3">How to get your HTML source:</h3>
+            <ol class="space-y-2 text-gray-700">
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">1</span>
+                <span>Log in to <a href="https://my.wisc.edu" target="_blank" rel="noopener" class="text-uw-red hover:text-uw-red-dark underline">MyUW Home</a>.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">2</span>
+                <span>Open <em>Course Schedule</em>.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">3</span>
+                <span>Select <em>Term</em> and click <em>Update</em>.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">4</span>
+                <span>Right-click anywhere on the page → <em>View Page Source</em>.</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">5</span>
+                <span>Select all (<kbd class="px-2 py-1 bg-gray-100 rounded text-sm">⌘/Ctrl+A</kbd>) and copy (<kbd class="px-2 py-1 bg-gray-100 rounded text-sm">⌘/Ctrl+C</kbd>).</span>
+              </li>
+              <li class="flex items-start space-x-2">
+                <span class="flex-shrink-0 w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">6</span>
+                <span>Paste the entire HTML into the box below <em>(make sure your browser language is set to English for consistent parsing)</em>.</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
 
-    <footer>All times are exported with <code>TZID=America/Chicago</code>, automatically respecting Central Time DST changes.</footer>
+      <!-- Form -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
+        <!-- Step 1: HTML Input -->
+        <div>
+          <label for="html" class="block text-sm font-semibold text-gray-900 mb-2">
+            <span class="inline-flex items-center space-x-2">
+              <span class="w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">1</span>
+              <span>Paste full Course Schedule HTML here</span>
+            </span>
+          </label>
+          <textarea 
+            id="html" 
+            placeholder="&lt;!doctype html&gt; ..." 
+            class="w-full h-48 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-uw-red focus:border-uw-red resize-y font-mono text-sm"
+          ></textarea>
+        </div>
+
+        <!-- Steps 2-4: Configuration -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <label for="start" class="block text-sm font-semibold text-gray-900 mb-2">
+              <span class="inline-flex items-center space-x-2">
+                <span class="w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">2</span>
+                <span>Term begins</span>
+              </span>
+            </label>
+            <input 
+              type="date" 
+              id="start" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-uw-red focus:border-uw-red"
+              placeholder="e.g. 2025-09-03"
+            />
+          </div>
+          <div>
+            <label for="end" class="block text-sm font-semibold text-gray-900 mb-2">
+              <span class="inline-flex items-center space-x-2">
+                <span class="w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">3</span>
+                <span>Term ends</span>
+              </span>
+            </label>
+            <input 
+              type="date" 
+              id="end" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-uw-red focus:border-uw-red"
+              placeholder="e.g. 2025-12-10"
+            />
+          </div>
+          <div>
+            <label for="alert" class="block text-sm font-semibold text-gray-900 mb-2">
+              <span class="inline-flex items-center space-x-2">
+                <span class="w-6 h-6 bg-uw-red text-white rounded-full flex items-center justify-center text-sm font-medium">4</span>
+                <span>Default alert</span>
+              </span>
+            </label>
+            <select id="alert" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-uw-red focus:border-uw-red">
+              <option value="none" selected>None</option>
+              <option value="0">At time of event</option>
+              <option value="5">5 minutes before</option>
+              <option value="10">10 minutes before</option>
+              <option value="15">15 minutes before</option>
+              <option value="30">30 minutes before</option>
+              <option value="60">1 hour before</option>
+              <option value="120">2 hours before</option>
+              <option value="1440">1 day before</option>
+              <option value="2880">2 days before</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Generate button -->
+        <div class="pt-4">
+          <button 
+            id="generate" 
+            class="w-full bg-uw-red hover:bg-uw-red-dark text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-uw-red focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="inline-flex items-center space-x-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+              <span>Generate ICS File</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="mt-8 text-center">
+        <p class="text-sm text-gray-600">
+          All times are exported with <code class="px-2 py-1 bg-gray-100 rounded text-xs">TZID=America/Chicago</code>, automatically respecting Central Time DST changes.
+        </p>
+      </div>
+    </div>
 
     <script>
       /* util helpers */
@@ -138,10 +249,17 @@
           /**
            * find first occurrence of weekday >= termStart
            * event.start is like "2023-01-03T09:30:00-06:00" → weekday
+           * Skip events with null start times (online courses without specific times)
            */
           events.forEach((evt) => {
+            // Skip events with null start or end times (e.g., online courses)
+            if (!evt.start || !evt.end) {
+              console.log(`Skipping event with null time: ${evt.title}`);
+              return;
+            }
+
             const evtDate = new Date(evt.start);
-            const weekday = evtDate.getUTCDay(); // 0 Sun .. 6 Sat (but in UTC offset). We'll derive local.
+
             // compute local weekday using America/Chicago offset
             const options = { timeZone: "America/Chicago", weekday: "short" };
             const localWk = new Intl.DateTimeFormat("en-US", options)
@@ -157,8 +275,8 @@
               FR: 5,
               SA: 6,
             };
-            // prefer using numeric weekday consistent with map using original Date
-            const wday = weekday;
+            // Use the correctly mapped weekday from America/Chicago timezone
+            const wday = wkMap[localWk];
 
             // time portion (HH:MM:SS) from original local time string
             const [hh, mm, ss] = evt.start.substr(11, 8).split(":");
