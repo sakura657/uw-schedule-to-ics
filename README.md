@@ -25,7 +25,7 @@ A web-based tool to export your UW-Madison course schedule to iCalendar (.ics) f
    - Select all (Ctrl/Cmd+A) and copy (Ctrl/Cmd+C)
 
 2. **Use the Tool**:
-   - Open `schedule_export.html` in your web browser
+   - Open `index.html` in your web browser
    - Paste the HTML source code
    - Set term start and end dates
    - Choose alert preferences
@@ -96,7 +96,7 @@ A web-based tool to export your UW-Madison course schedule to iCalendar (.ics) f
 
 ```
 Export-ICS-UW-Madison/
-├── schedule_export.html    # Main application file
+├── index.html    # Main application file
 ├── README.md              # English documentation
 ├── README_CN.md           # Chinese documentation
 └── images/                # (Optional) Favicon and assets
@@ -108,7 +108,7 @@ Contributions are welcome! Please feel free to submit issues or pull requests.
 
 ### Development Setup
 1. Clone the repository
-2. Open `schedule_export.html` in your browser
+2. Open `index.html` in your browser
 3. Make changes and test with sample UW schedule data
 
 ## 📄 License

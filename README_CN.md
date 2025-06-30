@@ -25,7 +25,7 @@
    - 全选 (Ctrl/Cmd+A) 并复制 (Ctrl/Cmd+C)
 
 2. **使用工具**：
-   - 在浏览器中打开 `schedule_export.html`
+   - 在浏览器中打开 `index.html`
    - 粘贴 HTML 源代码
    - 设置学期开始和结束日期
    - 选择提醒偏好
@@ -96,7 +96,7 @@
 
 ```
 Export-ICS-UW-Madison/
-├── schedule_export.html    # 主应用程序文件
+├── index.html    # 主应用程序文件
 ├── README.md              # 英文文档
 ├── README_CN.md           # 中文文档
 └── images/                # （可选）图标和资源
@@ -108,7 +108,7 @@ Export-ICS-UW-Madison/
 
 ### 开发设置
 1. 克隆仓库
-2. 在浏览器中打开 `schedule_export.html`
+2. 在浏览器中打开 `index.html`
 3. 使用示例 UW 课程表数据进行更改和测试
 
 ## 📄 许可证
