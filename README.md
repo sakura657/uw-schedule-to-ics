@@ -1,5 +1,9 @@
 # UW-Madison Course Schedule → ICS Export Tool
 
+🔗 Try it live → [https://sakura657.github.io/uw-schedule-to-ics](https://sakura657.github.io/uw-schedule-to-ics)
+
+[简体中文](README_CN.md) | English
+
 A web-based tool to export your UW-Madison course schedule to iCalendar (.ics) format for easy import into calendar applications like Google Calendar, Apple Calendar, Outlook, and more.
 
 ## 🎯 Features

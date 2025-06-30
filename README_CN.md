@@ -1,5 +1,9 @@
 # UW-Madison 课程表 → ICS 导出工具
 
+🔗 在线体验 → [https://sakura657.github.io/uw-schedule-to-ics](https://sakura657.github.io/uw-schedule-to-ics)
+
+简体中文 | [English](README.md)
+
 一个基于网页的工具，可以将您的 UW-Madison 课程表导出为 iCalendar (.ics) 格式，方便导入到 Google 日历、Apple 日历、Outlook 等日历应用中。
 
 ## 🎯 功能特点
